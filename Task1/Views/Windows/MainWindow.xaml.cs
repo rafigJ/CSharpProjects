@@ -23,12 +23,6 @@ namespace Task1
     {
         public MainWindow() 
         {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>
-            {
-                { "1", "2" }
-            };
-            string a = "1";
-            Console.WriteLine("HashCode: " + a.GetHashCode());
             InitializeComponent();
         }
     }
