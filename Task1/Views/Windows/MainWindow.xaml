@@ -6,15 +6,32 @@
         xmlns:vm="clr-namespace:Task1.ViewModels"
         xmlns:l="clr-namespace:Task1"
         mc:Ignorable="d"
-        Title="{Binding Title}" 
+        Title="{Binding Title}"
         Height="450" Width="800">
-    <Window.DataContext>
-        <vm:MainWindowViewModel/>
-    </Window.DataContext>
-    <Grid>
-        <TextBox
-            Text = "{Binding Title}"
-        />
-        
-    </Grid>
+	<Window.DataContext>
+		<vm:MainWindowViewModel/>
+	</Window.DataContext>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<!-- Формы ввода -->
+		<StackPanel Orientation="Horizontal" Margin="5">
+			<TextBox x:Name="KeyTextBox" Width="150" Margin="0,0,5,0" Text="{Binding KeyInput, Mode=TwoWay}"/>
+			<TextBox x:Name="ValueTextBox" Width="150" Margin="0,0,5,0" Text="{Binding ValueInput, Mode=TwoWay}"/>
+			<Button Content="Добавить" Command="{Binding AddCommand}" Margin="0,0,5,0"/>
+			<Button Content="Получить" Command="{Binding GetCommand}" Margin="0,0,5,0"/>
+			<Button Content="Удалить" Command="{Binding RemoveCommand}" Margin="0,0,5,0"/>
+		</StackPanel>
+
+		<!-- Таблица для отображения HashMap -->
+		<DataGrid Grid.Row="1" ItemsSource="{Binding HashMap}" AutoGenerateColumns="False" Margin="5">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Key" Binding="{Binding Key}"/>
+				<DataGridTextColumn Header="Value" Binding="{Binding Value}"/>
+			</DataGrid.Columns>
+		</DataGrid>
+	</Grid>
 </Window>

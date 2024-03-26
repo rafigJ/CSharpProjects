@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Task1.Models
+// Определение пространства имен
+namespace ConsoleApp1
 {
+    // Определение класса HashMap
     public class HashMap<K, V>
     {
         private const double LoadFactor = 0.75;
@@ -19,7 +21,6 @@ namespace Task1.Models
             }
         }
 
-        // Добавляем новый конструктор для инициализации с начальными значениями
         public HashMap(params Pair<K, V>[] initialPairs) : this()
         {
             foreach (var pair in initialPairs)
@@ -160,6 +161,7 @@ namespace Task1.Models
         }
     }
 
+    // Определение класса Pair
     public class Pair<K, V>
     {
         public K Key { get; set; }
@@ -186,6 +188,54 @@ namespace Task1.Models
         public override string ToString()
         {
             return Value.ToString();
+        }
+    }
+
+    // Определение класса Program
+    class Program
+    {
+        public static void RunTests()
+        {
+            // Создаем карту и добавляем некоторые элементы для тестирования
+            var map = new HashMap<int, string>();
+            map.Put(1, "One");
+            map.Put(2, "Two");
+            map.Put(3, "Three");
+
+            // Проверяем методы карты
+            Console.WriteLine("Size of map: " + map.Size());
+            Console.WriteLine("Value for key 2: " + map.Get(2));
+            Console.WriteLine("Contains key 3: " + map.Contains(3));
+            Console.WriteLine("Contains key 4: " + map.Contains(4));
+
+            // Удаляем элемент и проверяем его отсутствие
+            map.Remove(1);
+            Console.WriteLine("Size of map after removal: " + map.Size());
+            Console.WriteLine("Contains key 1 after removal: " + map.Contains(1));
+
+            // Выводим все ключи и значения
+            Console.WriteLine("Keys in map:");
+            foreach (var key in map.Keys())
+            {
+                Console.WriteLine(key);
+            }
+            Console.WriteLine("Values in map:");
+            foreach (var value in map.Values())
+            {
+                Console.WriteLine(value);
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            // Выводим приветствие
+            Console.WriteLine("Hello, World!");
+
+            // Вызываем метод тестирования HashMap
+            RunTests();
+
+            // Добавляем эту строку, чтобы консоль не закрывалась сразу после завершения работы
+            Console.ReadLine();
         }
     }
 }
