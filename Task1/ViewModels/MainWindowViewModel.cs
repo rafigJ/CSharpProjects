@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Task1.Models;
@@ -18,6 +17,9 @@ namespace Task1.ViewModels
         public MainWindowViewModel()
         {
             HashMap = new HashMap<string, string>();
+            HashMap.Put("Key1", "Value1");
+            HashMap.Put("Key2", "Value2");
+            HashMap.Put("Key3", "Value3");
             AddCommand = new LambdaCommand(AddPair, CanAddPair);
             GetCommand = new LambdaCommand(GetValue, CanGetValue);
             RemoveCommand = new LambdaCommand(RemovePair, CanRemovePair);
@@ -150,6 +152,35 @@ namespace Task1.ViewModels
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    internal class LambdaCommand : ICommand
+    {
+        private readonly Action<object> _execute;
+        private readonly Func<object, bool> _canExecute;
+
+        public event EventHandler CanExecuteChanged;
+
+        public LambdaCommand(Action<object> execute, Func<object, bool> canExecute = null)
+        {
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _canExecute = canExecute;
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            return _canExecute == null || _canExecute(parameter);
+        }
+
+        public void Execute(object parameter)
+        {
+            _execute(parameter);
+        }
+
+        public void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

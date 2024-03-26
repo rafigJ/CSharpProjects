@@ -27,11 +27,12 @@
 		</StackPanel>
 
 		<!-- Таблица для отображения HashMap -->
-		<DataGrid Grid.Row="1" ItemsSource="{Binding HashMap}" AutoGenerateColumns="False" Margin="5">
-			<DataGrid.Columns>
-				<DataGridTextColumn Header="Key" Binding="{Binding Key}"/>
-				<DataGridTextColumn Header="Value" Binding="{Binding Value}"/>
-			</DataGrid.Columns>
-		</DataGrid>
-	</Grid>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding HashMap}" AutoGenerateColumns="False" Margin="5">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Key" Binding="{Binding Key}"/>
+                <DataGridTextColumn Header="Value" Binding="{Binding Value}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
 </Window>

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Task1.Models
 {
@@ -160,10 +162,35 @@ namespace Task1.Models
         }
     }
 
-    public class Pair<K, V>
+    public class Pair<K, V> : INotifyPropertyChanged
     {
-        public K Key { get; set; }
-        public V Value { get; set; }
+        private K _key;
+        public K Key
+        {
+            get { return _key; }
+            set
+            {
+                if (!EqualityComparer<K>.Default.Equals(_key, value))
+                {
+                    _key = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private V _value;
+        public V Value
+        {
+            get { return _value; }
+            set
+            {
+                if (!EqualityComparer<V>.Default.Equals(_value, value))
+                {
+                    _value = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public Pair() { }
 
@@ -183,9 +210,12 @@ namespace Task1.Models
             Value = value;
         }
 
-        public override string ToString()
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            return Value.ToString();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+
 }
